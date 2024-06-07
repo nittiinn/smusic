@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url(https://images.unsplash.com/photo-1611395565710-f7981ee9a073?q=80&w=1633&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    }
+
+    #audio {
+      margin-top: 10px;
+    }
+
+    img {
+      margin-top: 250px;
+      border-radius: 20px;
+      margin-left: 540px;
+      display: flex;
+      box-shadow: 0 4px 4px 4px rgb(233, 60, 60);
+      transition: transform 0.3s ease;
+
+    }
+
+    img:hover {
+      transform: scale(1.1);
+      box-shadow: none;
+    }
+
+    button {
+      width: 50px;
+      height: 50px;
+      background-color: #4c5eaf;
+      color: rgb(217, 255, 1);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    button:hover {
+      box-shadow: 0 0 10px 10px #ccc;
+    }
+
+    button.play::before {
+      content: "▶";
+    }
+
+    button.pause::before {
+      content: "⏸";
+    }
+
+    #progress-bar {
+      width: 200px;
+      background-color: #ccc;
+      margin: 20px auto;
+      height: 10px;
+    }
+
+    #progress {
+      background-color: #4CAF50;
+      height: 100%;
+    }
+    @media screen and (max-width: 600px) {
+    img {
+        display: block;
+        margin-bottom: 10px;
+        margin-left: 40px;
+    }
+}
+  </style>
+</head>
+
+<body>
+  <img style="height: 200px;" src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=1374&auto=
+    format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+
+  <audio id="audio" controls>
+    <source src="in-y2mate.com - Aashiqui The Love Theme.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="music-player">
+    <button id="play-pause-button" class="play"></button>
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const playPauseButton = document.getElementById('play-pause-button');
+    const progressBar = document.getElementById('progress');
+
+    playPauseButton.addEventListener('click', function () {
+      if (audio.paused) {
+        audio.play();
+        playPauseButton.classList.remove('play');
+        playPauseButton.classList.add('pause');
+      } else {
+        audio.pause();
+        playPauseButton.classList.remove('pause');
+        playPauseButton.classList.add('play');
+      }
+    });
+
+    audio.addEventListener('timeupdate', function () {
+      const percentage = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = percentage + '%';
+    });
+
+    audio.addEventListener('ended', function () {
+      playPauseButton.classList.remove('pause');
+      playPauseButton.classList.add('play');
+    });
+
+  </script>
+
+</body>
+
+</html>
